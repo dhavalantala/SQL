@@ -1,0 +1,16 @@
+USE MyDatabase;
+CREATE TABLE SalesData (
+    SaleID INT,
+    SaleDate DATE,
+    Amount DECIMAL(10,2),
+    PRIMARY KEY (SaleID, SaleDate)   -- Include SaleDate in the PK
+)
+PARTITION BY RANGE (YEAR(SaleDate)) (
+    PARTITION p2023 VALUES LESS THAN (2024),
+    PARTITION p2024 VALUES LESS THAN (2025),
+    PARTITION p2025 VALUES LESS THAN (2026),
+    PARTITION pMax  VALUES LESS THAN MAXVALUE
+);
+
+
+select * from SalesData
